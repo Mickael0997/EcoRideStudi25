@@ -1,0 +1,55 @@
+/* Assurez-vous que le body et le html prennent toute la hauteur */
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Le conteneur principal doit prendre toute la hauteur disponible */
+main {
+    flex: 1;
+}
+
+/* Footer */
+footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 20px;
+    margin-top: 8rem;
+    padding: 20px;
+    background-color: #B7EAE6;
+    font-size: 10px;
+    position: relative;
+    bottom: 0;
+    width: 98%;
+}
+
+.footer-left, .footer-center, .footer-right {
+    flex: 1;
+    text-align: center;
+}
+
+.footer-left {
+    text-align: left;
+}
+
+.footer-right {
+    text-align: right;
+}
+
+footer nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+footer nav ul li {
+    margin-bottom: 5px;
+}
+
+footer nav ul li a {
+    text-decoration: none;
+    color: #000;
+}
