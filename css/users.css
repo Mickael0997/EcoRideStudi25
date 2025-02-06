@@ -1,0 +1,93 @@
+/* Styles généraux */
+
+.container {
+    width: 80%;
+    max-width: 1200px;
+    margin: 20px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* En-tête du profil */
+.header {
+    display: flex;
+    align-items: center;
+    background-color: #1b5e20;
+    color: white;
+    padding: 20px;
+    border-radius: 8px 8px 0 0;
+}
+
+.profile-pic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid #B7EAE6;
+    margin-right: 20px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+.star {
+    color: gold;
+    font-size: 20px;
+    margin-right: 5px;
+}
+
+/* Informations principales */
+.section {
+    margin: 20px 0;
+    padding: 15px;
+    border-radius: 5px;
+    background: #f4fdf4;
+}
+
+.section h2 {
+    color: #1b5e20;
+    border-bottom: 2px solid #1b5e20;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.section p {
+    margin: 5px 0;
+}
+
+/* Historique des voyages */
+.historique ul {
+    list-style: none;
+    padding: 0;
+}
+
+.historique li {
+    background: #fff;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Avis clients */
+.avis-client {
+    background: #fff;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.avis-client h3 {
+    margin: 0 0 5px;
+    color: #1b5e20;
+}
