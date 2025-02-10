@@ -1,6 +1,6 @@
 /* Styles généraux */
 body.covoiturage-body {
-    font-family: Arial, sans-serif;
+    font-family: 'Montserrat', sans-serif;
     background-color: #f7f7f7;
     margin: 0;
     padding: 0;
@@ -82,9 +82,9 @@ body.covoiturage-body {
     transform: scale(1.02);
 }
 
-.covoiturage-result-left img {
-    width: 80px;
-    height: 80px;
+.covoiturage-result-image img {
+    width: 20px; /* Taille réduite à 20px */
+    height: 20px; /* Taille réduite à 20px */
     border-radius: 50%;
     margin-bottom: 20px;
     border: 2px solid #1b5e20;
@@ -99,6 +99,10 @@ body.covoiturage-body {
 .covoiturage-result-details strong {
     font-size: 20px;
     color: #1b5e20;
+}
+
+.covoiturage-result-details u {
+    font-weight: bold;
 }
 
 .covoiturage-result-price {
@@ -134,6 +138,7 @@ body.covoiturage-body {
 .covoiturage-filters {
     display: flex;
     justify-content: space-between;
+    align-items: center; /* Ajouté pour aligner les boutons verticalement */
     margin-top: 10px;
 }
 

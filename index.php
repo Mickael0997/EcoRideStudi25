@@ -1,4 +1,3 @@
-<?php include './php/database.php'?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -26,21 +25,14 @@
 </div>
 
 <!--NAV RECHERCHE-->
-<section class="search-bar">
+<form action="php/covoiturage.php" method="GET" class="search-bar">
     <div class="search-item">
         <span class="icon-circle turquoise"></span>
-        <input type="text" placeholder="Départ" list="villes">
-        <datalist id="villes">
-            <option value="Paris">
-            <option value="Marseille">
-            <option value="Lyon">
-            <option value="Toulouse">
-            <option value="Nice">
-        </datalist>
+        <input type="text" name="depart" placeholder="Départ">
     </div>
     <div class="search-item">
         <span class="icon-circle green"></span>
-        <input type="text" placeholder="Destination" list="villes">
+        <input type="text" name="destination" placeholder="Destination">
     </div>
     <div class="search-item">
         <span class="icon-calendar">
@@ -53,7 +45,7 @@
                 </g>
             </svg>
         </span>
-        <input type="date">
+        <input type="date" name="date">
     </div>
     <div class="search-item">
         <span class="icon-passenger">
@@ -65,11 +57,11 @@
                 </g>
             </svg>
         </span>
-        <input type="number" min="1" max="8" value="1">
+        <input type="number" name="passagers" min="1" max="8" value="1" required>
         <label for="passenger">passager</label>
     </div>
-    <button class="search-button">Rechercher</button>
-</section>
+    <button class="search-button" type="submit">Rechercher</button>
+</form>
 
 <!--NOUVELLE SECTION TEXTE-->
 <section class="text-section">

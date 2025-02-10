@@ -52,7 +52,7 @@ if ($pseudo) {
 <?php if ($utilisateur): ?>
     <div class="container">
         <div class="header">
-            <img src="../assets/persona1.jpg" alt="Photo de profil" class="profile-pic">
+            <img src="../assets/un.png" alt="Photo de profil" class="profile-pic">
             <h1><?= htmlspecialchars($utilisateur["pseudo"]) ?> est <?= htmlspecialchars($utilisateur["role"]) ?></h1>
             <div class="rating">
                 <?php if (isset($utilisateur["note_moyenne"])): ?>

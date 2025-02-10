@@ -200,21 +200,26 @@ header {
 
 .search-bar {
     display: flex;
-    align-items: center;
-    padding: 10px;
+    justify-content: center;
+    padding: 20px;
     background-color: #fff;
     border-radius: 10px;
-    gap: 10px;
-    margin: 4rem;
-    margin-right: 31rem;
-    margin-left: 34rem;
+    margin: 20px 0;
     border: solid 0.5px rgba(55, 55, 55, 0.2);
+    width: 50%;
+    margin-left: 29rem;
+}
+
+.search-bar form {
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
 
 .search-item {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 10px;
 }
 
 .icon-circle {
@@ -261,9 +266,9 @@ header {
 .search-bar input[type="text"],
 .search-bar input[type="date"],
 .search-bar input[type="number"] {
-    padding: 5px;
+    padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 3px;
+    border-radius: 5px;
 }
 
 .search-button {
