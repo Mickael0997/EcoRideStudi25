@@ -19,11 +19,18 @@ if (isset($_SESSION['id_utilisateur'])) {
 
     if ($utilisateur) {
         $pseudo = htmlspecialchars($utilisateur['pseudo']);
-        $photo = $utilisateur['photo'] 
-            ? 'data:image/jpeg;base64,' . base64_encode($utilisateur['photo']) 
-            : '../assets/user icon.jpg';
+        if ($utilisateur['photo']) {
+            // Vérifiez si la photo est en base64 ou un chemin vers une image
+            if (base64_encode(base64_decode($utilisateur['photo'], true)) === $utilisateur['photo']) {
+                $photo = 'data:image/jpeg;base64,' . $utilisateur['photo'];
+            } else {
+                $photo = '../assets/' . htmlspecialchars($utilisateur['photo']);
+            }
+        } else {
+            $photo = '../assets/user icon.jpg';
+        }
     } else {
-        $pseudo = 'Invité';
+        $pseudo = '';
         $photo = '../assets/user icon.jpg';
     }
 } else {
@@ -43,68 +50,9 @@ unset($_SESSION['error']);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EcoRide - Covoiturage écologique</title>
     <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/login.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        /* Styles pour la fenêtre modale */
-        .hidden {
-            display: none;
-        }
 
-        #login-modal {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-        }
-
-        #login-form {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        #login-form label {
-            font-weight: bold;
-        }
-
-        #login-form input {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        #login-form button {
-            padding: 10px;
-            background-color: #38ddcc;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        #login-form button[type="button"] {
-            background-color: #ccc;
-        }
-
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-    </style>
     <script>
         function openLoginModal() {
             document.getElementById('login-modal').classList.remove('hidden');
@@ -132,23 +80,25 @@ unset($_SESSION['error']);
             <li><a href="../index.php">Accueil</a></li>
             <li><a href="../php/covoiturage.php">Covoiturage</a></li>
             <li><a href="#">Rechercher</a></li>
-            <li><a href="#">Trajet <span class="add-icon">+</span></a></li>
-        </ul>
-        <div class="profile-menu">
-            <span class="profile-pseudo"><?= $pseudo ?></span>
-            <span class="profile-icon">
-                <img src="<?= $photo ?>" alt="Profile Icon" id="profile-image">
-            </span>
-            <div class="dropdown-content">
-                <?php if (isset($_SESSION['id_utilisateur'])): ?>
-                    <a href="profile.php">Mon profil</a>
-                    <a href="logout.php">Se déconnecter</a>
-                <?php else: ?>
-                    <a href="inscription.php">Inscription</a>
-                    <a href="#" onclick="openLoginModal()">Se connecter</a>
-                <?php endif; ?>
+            <?php if (isset($_SESSION['id_utilisateur'])): ?>
+                <li><a href="../php/add_trip.php">Ajouter un trajet <span class="add-icon">+</span></a></li>
+            <?php endif; ?>
+            </ul>
+            <div class="profile-menu">
+                <span class="profile-pseudo"><?= $pseudo ?></span>
+                <span class="profile-icon">
+                    <img src="<?= $photo ?>" alt="Profile Icon" id="profile-image">
+                </span>
+                <div class="dropdown-content">
+                    <?php if (isset($_SESSION['id_utilisateur'])): ?>
+                        <a href="../php/profile.php?id=<?= $id_utilisateur ?>">Mon profil</a>
+                        <a href="logout.php">Se déconnecter</a>
+                    <?php else: ?>
+                        <a href="inscription.php">Inscription</a>
+                        <a href="#" onclick="openLoginModal()">Se connecter</a>
+                    <?php endif; ?>
+                </div>
             </div>
-        </div>
     </nav>
 </header>
 

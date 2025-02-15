@@ -7,17 +7,18 @@ $destination = isset($_GET['destination']) ? trim($_GET['destination']) : '';
 $date = isset($_GET['date']) ? trim($_GET['date']) : '';
 $passagers = isset($_GET['passagers']) ? intval($_GET['passagers']) : 1;
 $tri = isset($_GET['tri']) ? (array)$_GET['tri'] : [];
+$ecologique = isset($_GET['ecologique']) ? true : false;
 
 // Définition de la date et heure actuelles
 $now_date = date("Y-m-d");
 $now_time = date("H:i:s");
 
 // Construction de la requête SQL
-$query = "SELECT c.*, u.pseudo, u.photo, v.modele 
-          FROM Covoiturage c
-          JOIN Utilisateur u ON c.id_utilisateur = u.id_utilisateur
-          JOIN Voiture v ON c.id_voiture = v.id_voiture
-          WHERE c.nb_place >= :passagers";
+$query = "SELECT c.*, u.pseudo, u.photo, v.modele, v.energie 
+            FROM Covoiturage c
+            JOIN Utilisateur u ON c.id_utilisateur = u.id_utilisateur
+            JOIN Voiture v ON c.id_voiture = v.id_voiture
+            WHERE c.nb_place >= :passagers";
 
 $params = [':passagers' => $passagers];
 
@@ -38,6 +39,11 @@ if (!empty($date)) {
     $query .= " AND (c.date_depart > :now_date OR (c.date_depart = :now_date AND c.heure_depart >= :now_time))";
     $params[':now_date'] = $now_date;
     $params[':now_time'] = $now_time;
+}
+
+// Filtrer les véhicules écologiques
+if ($ecologique) {
+    $query .= " AND (v.energie = 'électrique' OR v.energie = 'hybride')";
 }
 
 // Gestion du tri des résultats
@@ -113,6 +119,7 @@ $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </div>
     <label><input type="checkbox" name="tri[]" value="heure" <?= in_array('heure', $tri) ? 'checked' : '' ?>> Départ le plus proche</label>
     <label><input type="checkbox" name="tri[]" value="prix" <?= in_array('prix', $tri) ? 'checked' : '' ?>> Prix le plus bas</label>
+    <label><input type="checkbox" name="ecologique" <?= $ecologique ? 'checked' : '' ?>> Écologique</label>
     <button class="search-button" type="submit">Rechercher</button>
     <button type="button" id="showAll">Tout afficher</button>
     <button type="button" id="resetFilters">Réinitialiser</button>

@@ -8,7 +8,7 @@ if (!isset($_SESSION['id_utilisateur'])) {
     exit;
 }
 
-$id_utilisateur = $_SESSION['id_utilisateur'];
+$id_utilisateur = isset($_GET['id']) ? (int)$_GET['id'] : $_SESSION['id_utilisateur'];
 
 // Récupérez les informations de l'utilisateur connecté
 $stmt = $pdo->prepare("
@@ -33,7 +33,7 @@ $telephone = htmlspecialchars($utilisateur['telephone']);
 $adresse = htmlspecialchars($utilisateur['adresse']);
 $date_naissance = htmlspecialchars($utilisateur['date_naissance']);
 $role = htmlspecialchars($utilisateur['role']);
-$photo = $utilisateur['photo'] ? '../assets/un.png,' . base64_encode($utilisateur['photo']) : '../assets/user icon.jpg';
+$photo = $utilisateur['photo'] ? '../assets/' . htmlspecialchars($utilisateur['photo']) : '../assets/user icon.jpg';
 
 // Récupérer les avis concernant l'utilisateur
 $stmt = $pdo->prepare("
@@ -62,9 +62,11 @@ $historique = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <title>Profil - EcoRide</title>
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/profile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="profile-container">
+        <a href="../index.php" class="home-icon"><i class="fas fa-home"></i> Accueil</a>
         <h2>Profil de <?= $pseudo ?></h2>
         <img src="<?= $photo ?>" alt="Photo de profil">
         <form action="update_profile.php" method="POST" enctype="multipart/form-data">
@@ -86,7 +88,21 @@ $historique = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </form>
 
         <h3>Véhicules</h3>
-        <a href="add_vehicle.php">Ajouter un véhicule</a>
+        <form action="add_vehicle.php" method="POST">
+            <label for="marque">Marque :</label>
+            <input type="text" id="marque" name="marque" required>
+            <label for="modele">Modèle :</label>
+            <input type="text" id="modele" name="modele" required>
+            <label for="immatriculation">Immatriculation :</label>
+            <input type="text" id="immatriculation" name="immatriculation" required>
+            <label for="energie">Énergie :</label>
+            <input type="text" id="energie" name="energie" required>
+            <label for="couleur">Couleur :</label>
+            <input type="text" id="couleur" name="couleur" required>
+            <label for="date_premiere_immatriculation">Date de première immatriculation :</label>
+            <input type="date" id="date_premiere_immatriculation" name="date_premiere_immatriculation" required>
+            <button type="submit">Ajouter</button>
+        </form>
         <!-- Liste des véhicules de l'utilisateur -->
 
         <h3>Préférences</h3>

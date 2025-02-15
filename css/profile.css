@@ -13,6 +13,7 @@ body {
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
 }
 
 .profile-container h2 {
@@ -83,4 +84,17 @@ body {
 .profile-container p {
     margin: 5px 0;
     color: #555;
+}
+
+.home-icon {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 24px;
+    color: #38ddcc;
+    text-decoration: none;
+}
+
+.home-icon:hover {
+    color: #32c7b8;
 }
