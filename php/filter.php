@@ -1,16 +1,17 @@
 <?php
 include 'database.php'; // Assurez-vous que le chemin est correct
 
-$depart = isset($_POST['depart']) ? $_POST['depart'] : '';
-$destination = isset($_POST['destination']) ? $_POST['destination'] : '';
-$date = isset($_POST['date']) ? $_POST['date'] : '';
+$depart = isset($_POST['depart']) ? trim($_POST['depart']) : '';
+$destination = isset($_POST['destination']) ? trim($_POST['destination']) : '';
+$date = isset($_POST['date']) ? trim($_POST['date']) : '';
 $passagers = isset($_POST['passagers']) ? intval($_POST['passagers']) : 1;
 $tri = isset($_POST['tri']) ? (array)$_POST['tri'] : [];
+$ecologique = isset($_POST['ecologique']) ? true : false;
 
 $now_date = date("Y-m-d");
 $now_time = date("H:i:s");
 
-$query = "SELECT c.*, u.pseudo, u.photo, v.modele 
+$query = "SELECT c.*, u.pseudo, u.photo, v.modele, v.energie 
             FROM Covoiturage c
             JOIN Utilisateur u ON c.id_utilisateur = u.id_utilisateur
             JOIN Voiture v ON c.id_voiture = v.id_voiture
@@ -35,10 +36,21 @@ if (!empty($date)) {
     $params[':now_time'] = $now_time;
 }
 
+// Filtrer les véhicules écologiques
+if ($ecologique) {
+    $query .= " AND (v.energie = 'électrique' OR v.energie = 'hybride')";
+}
+
+// Gestion du tri des résultats
+$orderBy = [];
 if (in_array('prix', $tri)) {
-    $query .= " ORDER BY c.prix_par_personne ASC";
-} elseif (in_array('heure', $tri)) {
-    $query .= " ORDER BY c.date_depart ASC, c.heure_depart ASC";
+    $orderBy[] = "c.prix_par_personne ASC";
+}
+if (in_array('heure', $tri)) {
+    $orderBy[] = "c.date_depart ASC, c.heure_depart ASC";
+}
+if (!empty($orderBy)) {
+    $query .= " ORDER BY " . implode(', ', $orderBy);
 }
 
 $stmt = $pdo->prepare($query);

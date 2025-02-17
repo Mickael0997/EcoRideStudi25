@@ -83,8 +83,8 @@ body.covoiturage-body {
 }
 
 .covoiturage-result-image img {
-    width: 20px; /* Taille réduite à 20px */
-    height: 20px; /* Taille réduite à 20px */
+    width: 80px; /* Taille ajustée pour un style CV */
+    height: 80px; /* Taille ajustée pour un style CV */
     border-radius: 50%;
     margin-bottom: 20px;
     border: 2px solid #1b5e20;
@@ -93,7 +93,8 @@ body.covoiturage-body {
 .covoiturage-result-details {
     flex: 1;
     font-size: 16px;
-    text-align: center;
+    text-align: left;
+    width: 100%;
 }
 
 .covoiturage-result-details strong {
@@ -159,4 +160,148 @@ body.covoiturage-body {
 
 .covoiturage-filters button:hover {
     background: #165a1d;
+}
+
+/* Style pour les détails du trajet */
+.covoiturage-result-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.covoiturage-result-left img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px solid #1b5e20;
+}
+
+.covoiturage-result-details p {
+    margin: 5px 0;
+}
+
+.covoiturage-result-details a.profile-link {
+    color: #1b5e20;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.covoiturage-result-details a.profile-link:hover {
+    text-decoration: underline;
+}
+
+.contact-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #1b5e20;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.contact-button:hover {
+    background-color: #165a1d;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .covoiturage-container {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .covoiturage-search-bar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .covoiturage-search-bar label, .covoiturage-search-bar select, .covoiturage-search-bar input, .covoiturage-search-bar button {
+        width: 100%;
+        margin: 5px 0;
+        font-size: 14px; /* Diminuer la taille de la police */
+    }
+
+    .covoiturage-results {
+        grid-template-columns: 1fr;
+    }
+
+    .covoiturage-result {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    .covoiturage-result-image img {
+        width: 60px;
+        height: 60px;
+        margin-right: 20px;
+    }
+
+    .covoiturage-result-details {
+        font-size: 12px; /* Diminuer la taille de la police */
+    }
+
+    .covoiturage-result-price {
+        font-size: 16px; /* Diminuer la taille de la police */
+    }
+
+    .details-button, .reserve-button {
+        padding: 8px 16px;
+        font-size: 12px; /* Diminuer la taille de la police */
+    }
+
+    .contact-button {
+        padding: 8px 16px;
+        font-size: 12px; /* Diminuer la taille de la police */
+    }
+}
+
+@media (max-width: 480px) {
+    .covoiturage-container {
+        width: 95%;
+        padding: 10px;
+    }
+
+    .covoiturage-search-bar {
+        padding: 10px;
+    }
+
+    .covoiturage-search-bar label, .covoiturage-search-bar select, .covoiturage-search-bar input, .covoiturage-search-bar button {
+        font-size: 12px; /* Diminuer la taille de la police */
+    }
+
+    .covoiturage-results {
+        grid-template-columns: 1fr;
+    }
+
+    .covoiturage-result {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .covoiturage-result-image img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .covoiturage-result-details {
+        font-size: 12px; /* Diminuer la taille de la police */
+    }
+
+    .covoiturage-result-details strong {
+        font-size: 16px; /* Diminuer la taille de la police */
+    }
+
+    .covoiturage-result-price {
+        font-size: 14px; /* Diminuer la taille de la police */
+    }
+
+    .details-button, .reserve-button, .contact-button {
+        padding: 6px 12px;
+        font-size: 10px; /* Diminuer la taille de la police */
+    }
 }

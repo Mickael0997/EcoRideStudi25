@@ -36,6 +36,11 @@ header {
     margin-left: 6rem;
 }
 
+.header-left a {
+    text-decoration: none;
+    color: inherit;
+}
+
 .navbar {
     display: flex;
     align-items: center;
@@ -98,6 +103,7 @@ header {
     position: relative;
     display: flex;
     align-items: center;
+    margin-left: auto; /* Aligner à droite */
 }
 
 .profile-pseudo {
@@ -118,6 +124,7 @@ header {
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
+    right: 0; /* Aligner à droite */
 }
 
 .dropdown-content a {
@@ -135,6 +142,71 @@ header {
     display: block;
 }
 
+/*----- Burger Menu -----*/
+/*Mise en forme du burger menu*/
+.burger-menu {
+    display: none;
+    height: 0;
+    position: absolute;
+    right: 2rem;
+    top: 115px;
+    width: 220px;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 10%;
+    overflow: hidden;
+    transition: height 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/*Mise en place de l'ouverture du menu burger*/
+.burger-menu.open {
+    height: 170px;
+    width: 50%;
+}
+
+/*Mise en forme des buttons*/
+.burger-menu .action-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/*Mise en forme de la liste du burger menu*/
+.button-burger-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+/*Mise en forme de la liste du burger menu*/
+.burger-menu li {
+    padding: 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.liste {
+    margin: 0;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+}
+
+.liste ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.liste ul li {
+    margin: 0;
+    padding: 0;
+    display: inline;
+    font-size: 20px;
+    margin-right: 20px;
+}
 /*---------- MAIN ----------*/
 
 .banner {
@@ -320,14 +392,14 @@ header {
 }
 
 /*---------- MEDIA QUERIES ----------*/
-@media (max-width: 480px) {
+@media (max-width: 768px) {
     header {
         flex-direction: column;
         align-items: flex-start;
     }
 
     .header-left h1 {
-        font-size: 1.5rem;
+        font-size: 2rem;
     }
 
     .header-left p {
@@ -339,6 +411,9 @@ header {
         flex-direction: column;
         align-items: flex-start;
         gap: 10px;
+        position: relative;
+        left: 21.5rem;
+        top: 2rem;
     }
 
     .nav-list-one {
@@ -359,14 +434,34 @@ header {
         box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
         border-radius: 5px;
         padding: 10px;
+        z-index: 1000; /* Assurez-vous que le menu passe devant les images */
+        width: auto; /* Adapter la taille au contenu */
+    }
+
+    .nav-list-one.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 50px;
+        right: 20px;
+        background-color: white;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        border-radius: 5px;
+        padding: 10px;
+        z-index: 1000; /* Assurez-vous que le menu passe devant les images */
+        width: auto; /* Adapter la taille au contenu */
     }
 
     .nav-list-one li {
-        margin: 10px 0;
+        margin: 5px 0; /* Réduire l'espace entre les éléments */
+        font-size: 16px; /* Adapter la taille de la police */
     }
 
     .profile-menu {
         align-self: flex-end;
+        position: relative;
+        right: 4.5rem;
+        bottom: 7.5rem;
     }
 
     .dropdown-content {
@@ -387,6 +482,7 @@ header {
     .search-bar {
         flex-direction: column;
         margin: 20px;
+        width: 90%;
         margin-right: auto;
         margin-left: auto;
     }
@@ -398,23 +494,112 @@ header {
 
     .text-block {
         margin: 10px 0;
-    }
-
-    .deals {
         width: 90%;
-        padding: 10px;
     }
+}
 
-    .deal-container {
+@media (max-width: 480px) {
+    header {
         flex-direction: column;
+        align-items: flex-start;
     }
 
-    .deal-column {
-        margin: 0;
-        min-width: 100%;
+    .header-left h1 {
+        font-size: 1.5rem;
     }
 
-    .deal-item {
-        width: 100%;
+    .header-left p {
+        margin-left: 0;
+        font-size: 0.8em;
+    }
+
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        position: relative;
+        left: 21.5rem;
+        top: 2rem;
+    }
+
+    .nav-list-one {
+        display: none;
+    }
+
+    .menu-icon {
+        display: flex;
+    }
+
+    .menu-icon.active + .nav-list-one {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 50px;
+        right: 20px;
+        background-color: white;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        border-radius: 5px;
+        padding: 10px;
+        z-index: 1000; /* Assurez-vous que le menu passe devant les images */
+        width: auto; /* Adapter la taille au contenu */
+    }
+
+    .nav-list-one.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 50px;
+        right: 20px;
+        background-color: white;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        border-radius: 5px;
+        padding: 10px;
+        z-index: 1000; /* Assurez-vous que le menu passe devant les images */
+        width: auto; /* Adapter la taille au contenu */
+    }
+
+    .nav-list-one li {
+        margin: 5px 0; /* Réduire l'espace entre les éléments */
+        font-size: 14px; /* Adapter la taille de la police */
+    }
+
+    .profile-menu {
+        align-self: flex-end;
+        position: relative;
+        right: 4.5rem;
+        bottom: 7.5rem;
+    }
+
+    .dropdown-content {
+        right: 10px;
+    }
+
+    .banner {
+        flex-direction: column;
+        height: auto;
+        gap: 20px;
+    }
+
+    .image1, .image2, .image3 {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .search-bar {
+        flex-direction: column;
+        margin: 20px;
+        width: 90%;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .text-section {
+        flex-direction: column;
+        margin: 10px 0;
+    }
+
+    .text-block {
+        margin: 10px 0;
+        width: 90%;
     }
 }

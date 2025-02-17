@@ -1,0 +1,211 @@
+/* Styles généraux pour le header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #ffffff00;
+}
+
+.header-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.header-left h1 {
+    font-weight: 700;
+    color: black;
+    margin: 0;
+    font-size: 3rem;
+}
+
+.header-left p {
+    font-weight: 400;
+    color: grey;
+    margin: 0;
+    font-size: 0.9em;
+    margin-left: 6rem;
+}
+
+.header-left a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+}
+
+.nav-list-one {
+    display: flex;
+    gap: 10rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    margin-right: 16rem;
+    font-size: 20px;
+}
+
+.nav-list-one li {
+    display: flex;
+    align-items: center;
+}
+
+.nav-list-one li a {
+    text-decoration: none;
+    color: black;
+    font-weight: 400;
+}
+
+.add-icon {
+    background-color: #000;
+    color: #fff;
+    border-radius: 50%;
+    padding: 2px 6px;
+    margin-left: 5px;
+}
+
+.profile-menu {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-left: auto; /* Aligner à droite */
+}
+
+.profile-pseudo {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.profile-icon img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    right: 0; /* Aligner à droite */
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.profile-menu:hover .dropdown-content {
+    display: block;
+}
+
+/* Styles pour le burger menu */
+.burger-menu {
+    display: none;
+    height: 0;
+    position: absolute;
+    right: 2rem;
+    top: 115px;
+    width: 220px;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 10%;
+    overflow: hidden;
+    transition: height 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.burger-menu.open {
+    height: auto;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    border-radius: 5px;
+    padding: 10px;
+    z-index: 1000; /* Assurez-vous que le menu passe devant les images */
+}
+
+.burger-menu .action-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button-burger-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.burger-menu li {
+    padding: 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.liste {
+    margin: 0;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+}
+
+.liste ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.liste ul li {
+    margin: 0;
+    padding: 0;
+    display: inline;
+    font-size: 20px;
+    margin-right: 20px;
+}
+
+/* Media queries */
+@media (max-width: 768px) {
+    .navbar {
+        display: none;
+    }
+
+    .burger-menu-button {
+        display: flex;
+        cursor: pointer;
+    }
+
+    .burger-menu-button i {
+        font-size: 24px;
+    }
+
+    .burger-menu {
+        display: none;
+    }
+
+    .burger-menu.open {
+        display: flex;
+    }
+}
+
+@media (min-width: 769px) {
+    .burger-menu-button {
+        display: none;
+    }
+}

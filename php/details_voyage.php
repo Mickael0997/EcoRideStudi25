@@ -35,10 +35,26 @@ if (!$trajet) {
     <title>Détails du Trajet</title>
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/covoiturage.css">
+    <style>
+        .back-link {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            text-decoration: none;
+            color: #38ddcc;
+        }
+        .back-link svg {
+            margin-right: 8px;
+        }
+    </style>
 </head>
 <body class="covoiturage-body">
 <?php include 'header.php'; ?>
 <div class="covoiturage-container">
+    <a href="covoiturage.php" class="back-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        Retour au covoiturage
+    </a>
     <h1>Détails du Trajet</h1>
     <div class="covoiturage-result">
         <div class="covoiturage-result-left">
@@ -75,7 +91,6 @@ if (!$trajet) {
         <p><strong>Date de première immatriculation :</strong> <?= htmlspecialchars($trajet['date_premiere_immatriculation']) ?></p>
     </div>
     
-    <h2>Contact</h2>
     <a href="mailto:<?= htmlspecialchars($trajet['email']) ?>" class="contact-button">Contacter par Email</a>
 </div>
 </body>
