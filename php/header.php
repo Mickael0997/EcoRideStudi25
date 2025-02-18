@@ -63,8 +63,12 @@ unset($_SESSION['error']);
             document.getElementById('login-modal').classList.add('hidden');
         }
 
-        function toggleMenu() {
-            document.querySelector('.nav-list-one').classList.toggle('active');
+        function redirectToAddTrip() {
+            <?php if (isset($_SESSION['id_utilisateur'])): ?>
+                window.location.href = "add_trip.php";
+            <?php else: ?>
+                openLoginModal();
+            <?php endif; ?>
         }
 
         // Fonctions burger menu button open
@@ -73,50 +77,67 @@ unset($_SESSION['error']);
             const burgerMenuButtonIcon = document.querySelector('.burger-menu-button i');
             const burgerMenu = document.querySelector('.burger-menu');
 
-            // Ouverture au click
             burgerMenuButton.onclick = function() {
                 burgerMenu.classList.toggle('open');
                 const isOpen = burgerMenu.classList.contains('open');
                 burgerMenuButtonIcon.classList = isOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
             };
         });
+
+        function closeBurgerMenu() {
+            document.querySelector('.burger-menu').classList.remove('open');
+            document.querySelector('.burger-menu-button i').classList = 'fa-solid fa-bars';
+        }
     </script>
 </head>
 <body>
 <header>
-    <!--NAV HEADER-->
-    <div class="header-left">
+    <div class="header_title">
         <h1><a href="../index.php" style="text-decoration: none; color: inherit;">EcoRide</a></h1>
         <p>Covoiturer malin</p>
     </div>
-    <nav class="navbar">
-        <ul class="nav-list-one">
+    <nav class="header_navbar">
+        <div class="header_close_burger"></div>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+        </svg>
+
+        <ul class="header_navbar_list">
             <li><a href="../php/covoiturage.php">Covoiturage</a></li>
             <li><a href="#">Rechercher</a></li>
-            <?php if (isset($_SESSION['id_utilisateur'])): ?>
-                <li><a href="../php/add_trip.php">Ajouter un trajet <span class="add-icon">+</span></a></li>
-            <?php endif; ?>
         </ul>
-        <div class="profile-menu">
-            <span class="profile-pseudo"><?= $pseudo ?></span>
-            <span class="profile-icon">
-                <img src="<?= $photo ?>" alt="Profile Icon" id="profile-image">
-            </span>
-            <div class="dropdown-content">
-                <?php if (isset($_SESSION['id_utilisateur'])): ?>
-                    <a href="../php/profile.php?id=<?= $id_utilisateur ?>">Mon profil</a>
-                    <a href="logout.php">Se déconnecter</a>
-                <?php else: ?>
-                    <a href="inscription.php">Inscription</a>
-                    <a href="#" onclick="openLoginModal()">Se connecter</a>
-                <?php endif; ?>
-            </div>
-        </div>
     </nav>
-    <div class="burger-menu-button">
-        <i class="fas fa-bars"></i>
+
+    <button class="add-trip-button" onclick="redirectToAddTrip()">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="white">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-6H5v-2h6V5h2v6h6v2h-6v6z"/>
+        </svg>
+    </button>
+
+    <div class="header_profile_menu">
+        <span class="header_profile_pseudo"><?= $pseudo ?></span>
+        <span class="header_profile_icon">
+            <img src="<?= $photo ?>" alt="Profile Icon" id="profile-image">
+        </span>
+        <div class="dropdown-content">
+            <?php if (isset($_SESSION['id_utilisateur'])): ?>
+                <a href="../php/profile.php?id=<?= $id_utilisateur ?>">Mon profil</a>
+                <a href="../php/logout.php">Se déconnecter</a>
+            <?php else: ?>
+                <a href="inscription.php">Inscription</a>
+                <a href="#" onclick="openLoginModal()">Se connecter</a>
+            <?php endif; ?>
+        </div>
     </div>
 </header>
+
+<!-- Burger Menu -->
+<div class="header_burger">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+</svg>
+    <span class="close-burger" onclick="closeBurgerMenu()">&times;</span>
+</div>
 
 <!-- Fenêtre modale de connexion -->
 <div id="login-modal" class="hidden">
@@ -134,22 +155,6 @@ unset($_SESSION['error']);
     </form>
 </div>
 
-<!-- Burger Menu -->
-<div class="burger-menu">
-    <ul class="links">
-        <li><a href="../php/covoiturage.php">Covoiturage</a></li>
-        <li><a href="#">Rechercher</a></li>
-        <?php if (isset($_SESSION['id_utilisateur'])): ?>
-            <li><a href="../php/add_trip.php">Ajouter un trajet <span class="add-icon">+</span></a></li>
-        <?php endif; ?>
-        <div class="burger-divider"></div>
-        <div class="buttons-burger-menu">
-            <a href="../HTML/contact.htm" class="action-button">Contacts/Avis</a>
-            <a href="./login.php" class="action-button connexion" id="connexion">Connexion</a>
-        </div>
-    </ul>
-</div>
-
-<?php ob_end_flush(); // Envoie tout le contenu tamponné ?>
+<?php ob_end_flush(); ?>
 </body>
 </html>
