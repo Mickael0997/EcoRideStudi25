@@ -5,6 +5,13 @@ header {
     align-items: center;
     padding: 10px 20px;
     background-color: #ffffff00;
+    position: relative; /* Ajouté pour positionner l'overlay correctement */
+    z-index: 10; /* Assurez-vous que le header est au-dessus de l'overlay */
+}
+
+.header_title h1 a {
+    text-decoration: none;
+    color: inherit;
 }
 
 .header_title {
@@ -34,29 +41,11 @@ header {
     color: inherit;
 }
 
-.add-trip-button {
-    position: absolute;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #000;
-    color: #fff;
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-}
-
 .header_navbar {
     display: flex;
     align-items: center;
     gap: 10px; /* Ajusté pour les petites résolutions */
     position: relative;
-    left: 15rem;
 }
 
 .header_navbar_list {
@@ -68,7 +57,7 @@ header {
     font-size: 16px; /* Ajusté pour les petites résolutions */
 }
 
-.header_navbar_list:last-of-type{
+.header_navbar_list:last-of-type {
     margin-right: initial;
 }
 
@@ -85,7 +74,7 @@ header {
     font-size: 20px;
 }
 
-.header_navbar_list li a::after{
+.header_navbar_list li a::after {
     content: '';
     height: 2px;
     background-color: #1c7a72;
@@ -96,7 +85,7 @@ header {
     transition: 0.2s all ease-in-out;
 }
 
-.header_navbar_list li a:hover:after{
+.header_navbar_list li a:hover::after {
     width: 100%;
     left: 0;
 }
@@ -119,6 +108,7 @@ header {
     height: 40px; /* Ajusté pour les petites résolutions */
     border-radius: 50%;
 }
+
 .header_profile_menu:hover .dropdown-content {
     display: block;
 }
@@ -144,20 +134,23 @@ header {
     background-color: #f1f1f1;
 }
 
-
-/* Styles pour le burger*/
-
-.header_burger{
+/* Styles pour le burger */
+.header_burger {
     display: none;
+    cursor: pointer;
+    width: 2rem;
+    position: fixed;
+    right: 24px; /* Utilisez right au lieu de left pour un positionnement flexible */
+    top: 60px; /* Ajustez la position verticale selon vos besoins */
+    transform: translateX(0); /* Centrez le bouton horizontalement */
+    z-index: 20; /* Assurez-vous que le bouton est au-dessus de l'overlay */
 }
 
-.header_burger svg{
+.header_burger svg {
     stroke: #000;
-    width: 22px;
-    height: 22px;
-    position: absolute;
-    left: 38.75rem;
-    top: 5rem;
+    width: 30px; /* Ajusté pour les petites résolutions */
+    height: 30px; /* Ajusté pour les petites résolutions */
+    cursor: pointer;
 }
 
 .header_close_burger {
@@ -166,50 +159,68 @@ header {
 
 /* Media queries */
 @media screen and (max-width: 750px) {
-
     .header_burger {
         display: block;
+        cursor: pointer;
     }
 
     .header_navbar {
         display: none;
-    }
-
-    .header_navbar {
-        position: relative;
-        top: 4.5rem;
-        left: 23rem;
-        width: 100px;
-        height: 7vh;
+        position: fixed;
+        top: 5%;
+        left: 60%;
+        width: 35%;
         background-color: #b7eae6;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        transition: 0.3s transform ease-in-out;
+        z-index: 20;
+        border-radius: 10px;
+        height: 7rem;
     }
 
-    .header_navbar_list{
+    .header_navbar.open {
+        display: flex;
+    }
+
+    .header_navbar_list {
         flex-direction: column;
         align-items: flex-start;
     }
 
-    .header_navbar_list li{
+    .header_navbar_list li {
         margin-right: 0;
     }
 
-    .header_navbar_list li a{
+    .header_navbar_list li a {
         font-size: 15px;
+        bottom: 5px;
     }
 
     .header_close_burger {
         display: block;
+        cursor: pointer;
     }
-    
-    .header_close_burger svg{
+
+    .header_close_burger svg {
         stroke: #000;
         width: 22px;
-        height: 22px;
+        height: 15px;
         position: absolute;
-        left: 38.75rem;
-        top: 5rem;
+        left: 5px;
+        top: 5px;
+    }
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0,0,0,0.6);
+        display: none;
+        z-index: 9; /* pour que l'overlay sois en dessous du menu */
+    }
+
+    .overlay.open {
+        display: block;
     }
 }
