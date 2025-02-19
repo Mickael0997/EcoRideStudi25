@@ -26,6 +26,15 @@ $trajet = $stmt->fetch(PDO::FETCH_ASSOC);
 if (!$trajet) {
     die("Détails du trajet non disponibles.");
 }
+
+// Requête pour récupérer les avis du conducteur
+$queryAvis = "SELECT a.commentaire, a.note, u.pseudo 
+              FROM Avis a
+              JOIN Utilisateur u ON a.id_utilisateur = u.id_utilisateur
+              WHERE a.id_covoiturage = ?";
+$stmtAvis = $pdo->prepare($queryAvis);
+$stmtAvis->execute([$trajet['id_covoiturage']]);
+$avis = $stmtAvis->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -45,6 +54,16 @@ if (!$trajet) {
         }
         .back-link svg {
             margin-right: 8px;
+        }
+        .avis {
+            margin-top: 20px;
+        }
+        .avis-item {
+            border-bottom: 1px solid #ccc;
+            padding: 10px 0;
+        }
+        .avis-item:last-child {
+            border-bottom: none;
         }
     </style>
 </head>
@@ -91,6 +110,20 @@ if (!$trajet) {
         <p><strong>Date de première immatriculation :</strong> <?= htmlspecialchars($trajet['date_premiere_immatriculation']) ?></p>
     </div>
     
+    <h2>Avis du Conducteur</h2>
+    <div class="avis">
+        <?php if (empty($avis)): ?>
+            <p>Aucun avis disponible.</p>
+        <?php else: ?>
+            <?php foreach ($avis as $a): ?>
+                <div class="avis-item">
+                    <p><strong><?= htmlspecialchars($a['pseudo']) ?></strong> - <?= htmlspecialchars($a['note']) ?> ★</p>
+                    <p><?= htmlspecialchars($a['commentaire']) ?></p>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </div>
+
     <a href="mailto:<?= htmlspecialchars($trajet['email']) ?>" class="contact-button">Contacter par Email</a>
 </div>
 </body>

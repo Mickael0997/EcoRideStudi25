@@ -160,10 +160,11 @@ $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <label><input type="checkbox" name="ecologique" <?= $ecologique ? 'checked' : '' ?>> Écologique</label>
     <label for="prix_max">Prix maximum :</label>
     <input type="number" name="prix_max" step="0.01" value="<?= htmlspecialchars($prix_max) ?>">
-    <label for="duree_max">Durée maximum (minutes) :</label>
-    <input type="number" name="duree_max" value="<?= htmlspecialchars($duree_max) ?>">
+    <label for="duree_max">Durée maximum :</label>
+    <input type="time" name="duree_max" value="<?= htmlspecialchars($duree_max) ?>">
     <label for="note_min">Note minimale :</label>
     <select name="note_min">
+        <option value="" <?= $note_min == '' ? 'selected' : '' ?>></option>
         <option value="1" <?= $note_min == 1 ? 'selected' : '' ?>>1</option>
         <option value="2" <?= $note_min == 2 ? 'selected' : '' ?>>2</option>
         <option value="3" <?= $note_min == 3 ? 'selected' : '' ?>>3</option>
@@ -254,6 +255,14 @@ document.addEventListener("DOMContentLoaded", function () {
     resetFiltersBtn.addEventListener("click", function () {
         searchForm.reset();
         resultsContainer.innerHTML = "";
+    });
+
+    // Ajouter des écouteurs d'événements pour les filtres
+    document.querySelectorAll('input[name="tri[]"], input[name="ecologique"], input[name="prix_max"], input[name="duree_max"], select[name="note_min"]').forEach(element => {
+        element.addEventListener('change', function () {
+            const formData = new FormData(searchForm);
+            fetchResults(formData);
+        });
     });
 });
 </script>

@@ -50,13 +50,16 @@ header {
 
 .header_navbar_list {
     display: flex;
-    gap: 1rem; /* Ajusté pour les petites résolutions */
-    margin: 0;
-    padding: 0;
+    gap: 10rem;
     list-style: none;
-    font-size: 16px; /* Ajusté pour les petites résolutions */
+    font-size: 16px;
+    width: auto;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    left: 9rem;
 }
-
 .header_navbar_list:last-of-type {
     margin-right: initial;
 }
@@ -156,6 +159,23 @@ header {
 
 .header_close_burger {
     display: none;
+}
+
+@media (min-width: 750px) {
+    .header_container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .header_navbar_list {
+        flex-grow: 1;
+        justify-content: center;
+    }
+
+    .header_navbar_list li {
+        margin: 0 1rem;
+    }
 }
 
 /* Media queries */
