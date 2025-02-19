@@ -69,7 +69,7 @@ unset($_SESSION['error']);
             </svg>
         </div>
         <ul class="header_navbar_list">
-            <li><a href="#" onclick="handleAddTripClick()">Ajoutez un trajet</a></li>
+            <li><a href="../php/add_trip.php" onclick="return handleAddTripClick(event)">Ajoutez un trajet</a></li>
             <li><a href="../php/covoiturage.php">Covoiturage</a></li>
             <li><a href="#">Rechercher</a></li>
         </ul>
@@ -95,7 +95,6 @@ unset($_SESSION['error']);
         <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
     </svg>
 </div>
-
 <div class="overlay" onclick="closeMenuBurger()"></div>
 
 <!-- Fenêtre modale pour la connexion -->
@@ -103,13 +102,13 @@ unset($_SESSION['error']);
     <div class="modal-content">
         <span class="close" onclick="closeLoginModal()">&times;</span>
         <h2>Connexion</h2>
-        <form id="login-form" action="./login.php" method="post">
-            <label for="username">Nom d'utilisateur</label>
-            <input type="text" id="username" name="username" required>
-            <label for="password">Mot de passe</label>
-            <input type="password" id="password" name="password" required>
-            <button type="submit">Se connecter</button>
-        </form>
+        <form id="login-form" action="../php/auth.php" method="post">
+    <label for="identifier">Nom d'utilisateur ou Email</label>
+    <input type="text" id="identifier" name="identifier" required>
+    <label for="password">Mot de passe</label>
+    <input type="password" id="password" name="password" required>
+    <button type="submit">Se connecter</button>
+</form>
         <p>Pas de compte ? <a href="./inscription.php">Inscrivez-vous ici</a></p>
     </div>
 </div>
@@ -121,10 +120,9 @@ unset($_SESSION['error']);
     const isUserLoggedIn = <?= json_encode($isUserLoggedIn) ?>;
 
     // Fonction pour gérer le clic sur "Ajoutez un trajet"
-    function handleAddTripClick() {
-        if (isUserLoggedIn) {
-            window.location.href = "./add_trip.php";
-        } else {
+    function handleAddTripClick(event) {
+        if (!isUserLoggedIn) {
+            event.preventDefault();
             openLoginModal();
         }
     }

@@ -3,31 +3,34 @@ session_start();
 include __DIR__ . '/database.php';
 
 $error = '';
+$redirectTo = isset($_SESSION['redirect_to']) ? $_SESSION['redirect_to'] : null;
+unset($_SESSION['redirect_to']);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = $_POST['email'];
+    $identifier = $_POST['identifier']; // Peut être un email ou un pseudo
     $password = $_POST['password'];
 
-    // Vérifiez les informations de connexion
-    $stmt = $pdo->prepare("
-        SELECT u.id_utilisateur, u.mot_de_passe, r.libelle AS role 
-        FROM Utilisateur u
-        JOIN role r ON u.id_role = r.id_role
-        WHERE u.email = :email
-    ");
-    $stmt->execute(['email' => $email]);
+    // Requête pour vérifier les informations d'identification de l'utilisateur
+    $stmt = $pdo->prepare("SELECT id_utilisateur, pseudo, mot_de_passe FROM Utilisateur WHERE pseudo = :identifier OR email = :identifier");
+    $stmt->execute(['identifier' => $identifier]);
     $utilisateur = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($utilisateur && $password === $utilisateur['mot_de_passe']) {
-        // Connexion réussie
+        // Les informations d'identification sont correctes, démarrez la session
         $_SESSION['id_utilisateur'] = $utilisateur['id_utilisateur'];
-        $_SESSION['role'] = $utilisateur['role'];
-        header('Location: profile.php');
+        $_SESSION['pseudo'] = $utilisateur['pseudo'];
+
+        // Redirigez l'utilisateur vers la page appropriée
+        if ($redirectTo) {
+            header("Location: $redirectTo");
+        } else {
+            header('Location: profile.php');
+        }
         exit;
     } else {
-        $error = 'Email ou mot de passe incorrect';
-        $_SESSION['error'] = $error;
-        header('Location: ../index.php');
+        // Les informations d'identification sont incorrectes, définissez un message d'erreur
+        $_SESSION['error'] = 'Identifiant ou mot de passe incorrect';
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
         exit;
     }
 }

@@ -4,7 +4,9 @@ include __DIR__ . '/database.php';
 
 // Vérifiez si l'utilisateur est connecté
 if (!isset($_SESSION['id_utilisateur'])) {
-    header('Location: ../index.php');
+    // Redirigez l'utilisateur vers la page actuelle avec une fenêtre modale de connexion
+    $_SESSION['error'] = 'Vous devez être connecté pour ajouter un trajet.';
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
     exit;
 }
 

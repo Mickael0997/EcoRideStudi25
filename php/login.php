@@ -1,6 +1,6 @@
 <?php
 session_start();
-include __DIR__ . '/database.php'; // Utilisez __DIR__ pour obtenir le chemin absolu
+include __DIR__ . './database.php'; // Utilisez __DIR__ pour obtenir le chemin absolu
 
 // Vérifiez si le formulaire de connexion a été soumis
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
