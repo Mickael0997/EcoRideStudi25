@@ -111,9 +111,10 @@ $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         input[type=number]::-webkit-inner-spin-button {
             -webkit-appearance: none;
             margin: 0;
-        }
-        input[type=number] {
+        }input[type=number] {
             -moz-appearance: textfield;
+            -webkit-appearance: none; 
+            appearance: none;           
         }
     </style>
 </head>

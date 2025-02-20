@@ -35,7 +35,7 @@ if ($isUserLoggedIn) {
         $photo = '../assets/user icon.jpg';
     }
 } else {
-    $pseudo = 'Invité';
+    $pseudo = '';
     $photo = '../assets/user icon.jpg';
 }
 

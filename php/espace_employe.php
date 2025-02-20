@@ -3,16 +3,16 @@ session_start();
 include __DIR__ . '/database.php';
 
 // Vérifiez si l'utilisateur est connecté et est un employé
-if (!isset($_SESSION['id_utilisateur']) || $_SESSION['role'] !== 'employe') {
+if (!isset($_SESSION['id_employe']) || $_SESSION['role'] !== 'employe') {
     header('Location: ../index.php'); // Redirige vers la page d'accueil si l'utilisateur n'est pas connecté ou n'est pas un employé
     exit;
 }
 
-$id_utilisateur = $_SESSION['id_utilisateur'];
+$id_employe = $_SESSION['id_employe'];
 
 // Récupérer le pseudo de l'employé connecté
-$stmt = $pdo->prepare("SELECT pseudo FROM utilisateur WHERE id_utilisateur = :id_utilisateur");
-$stmt->execute(['id_utilisateur' => $id_utilisateur]);
+$stmt = $pdo->prepare("SELECT pseudo FROM employe WHERE id_employe = :id_employe");
+$stmt->execute(['id_employe' => $id_employe]);
 $employe = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$employe) {
@@ -59,12 +59,12 @@ $covoiturages_mal_passes = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <h1>Bienvenue, <?= htmlspecialchars($employe['pseudo']) ?></h1>
             <nav>
                 <ul>
-                    <li><a href="deconnexion.php">Déconnexion</a></li>
+                    <li><a href="espace_employe.php">Accueil</a></li>
+                    <li><a href="logout.php">Déconnexion</a></li>
                 </ul>
             </nav>
         </div>
     </header>
-    <?php include './header.php'; ?>
     <h1>Espace Employé</h1>
 
     <h2>Valider ou Refuser les Avis</h2>

@@ -19,6 +19,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmtEmploye->execute(['identifier' => $identifier]);
     $employe = $stmtEmploye->fetch(PDO::FETCH_ASSOC);
 
+    // Requête pour vérifier les informations d'identification de l'administrateur
+    $stmtAdmin = $pdo->prepare("SELECT id, nom, prenom, email, mot_de_passe FROM admin WHERE email = :identifier");
+    $stmtAdmin->execute(['identifier' => $identifier]);
+    $admin = $stmtAdmin->fetch(PDO::FETCH_ASSOC);
+
     if ($utilisateur && $password === $utilisateur['mot_de_passe']) {
         // Les informations d'identification de l'utilisateur sont correctes, démarrez la session
         $_SESSION['id_utilisateur'] = $utilisateur['id_utilisateur'];
@@ -26,18 +31,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['role'] = $utilisateur['role'];
 
         // Redirigez l'utilisateur vers la page appropriée
-        $redirectTo = 'profile.php';
         header("Location: $redirectTo");
         exit;
     } elseif ($employe && $password === $employe['mot_de_passe']) {
         // Les informations d'identification de l'employé sont correctes, démarrez la session
-        $_SESSION['id_utilisateur'] = $employe['id_employe'];
+        $_SESSION['id_employe'] = $employe['id_employe'];
         $_SESSION['pseudo'] = $employe['pseudo'];
         $_SESSION['role'] = $employe['role'];
 
         // Redirigez l'employé vers la page appropriée
-        $redirectTo = 'espace_employe.php';
-        header("Location: $redirectTo");
+        header("Location: espace_employe.php");
+        exit;
+    } elseif ($admin && $password === $admin['mot_de_passe']) {
+        // Les informations d'identification de l'administrateur sont correctes, démarrez la session
+        $_SESSION['id_admin'] = $admin['id'];
+        $_SESSION['nom'] = $admin['nom'];
+        $_SESSION['prenom'] = $admin['prenom'];
+        $_SESSION['role'] = 'admin';
+
+        // Redirigez l'administrateur vers la page appropriée
+        header("Location: admin.php");
         exit;
     } else {
         // Les informations d'identification sont incorrectes, définissez un message d'erreur
