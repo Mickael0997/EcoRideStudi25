@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 include __DIR__ . '/database.php';
 
 // Vérifiez si l'utilisateur est connecté
@@ -8,14 +10,18 @@ if (!isset($_SESSION['id_utilisateur'])) {
     exit;
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'ajouter') {
     $modele = $_POST['modele'];
     $immatriculation = $_POST['immatriculation'];
     $energie = $_POST['energie'];
     $couleur = $_POST['couleur'];
     $date_premiere_immatriculation = $_POST['date_premiere_immatriculation'];
-    $id_marque = $_POST['id_marque'];
+    $id_marque = isset($_POST['id_marque']) ? intval($_POST['id_marque']) : null;
     $id_utilisateur = $_SESSION['id_utilisateur'];
+
+    if ($id_marque === null) {
+        die("Erreur : La marque du véhicule est requise.");
+    }
 
     $stmt = $pdo->prepare("
         INSERT INTO Voiture (modele, immatriculation, energie, couleur, date_premiere_immatriculation, id_marque, id_utilisateur)
@@ -34,6 +40,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header('Location: profile.php');
     exit;
 }
+
+// Récupérer les marques disponibles
+$stmtMarques = $pdo->query("SELECT id_marque, libelle FROM Marque");
+$marques = $stmtMarques->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -47,6 +57,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <h2>Ajouter un véhicule</h2>
     <form method="POST">
+        <input type="hidden" name="action" value="ajouter">
+        <label for="id_marque">Marque :</label>
+        <select id="id_marque" name="id_marque" required>
+            <option value="">Sélectionnez une marque</option>
+            <?php foreach ($marques as $marque): ?>
+                <option value="<?= htmlspecialchars($marque['id_marque']) ?>"><?= htmlspecialchars($marque['libelle']) ?></option>
+            <?php endforeach; ?>
+        </select>
         <label for="modele">Modèle :</label>
         <input type="text" id="modele" name="modele" required>
         <label for="immatriculation">Immatriculation :</label>
@@ -57,10 +75,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="text" id="couleur" name="couleur" required>
         <label for="date_premiere_immatriculation">Date de première immatriculation :</label>
         <input type="date" id="date_premiere_immatriculation" name="date_premiere_immatriculation" required>
-        <label for="id_marque">Marque :</label>
-        <select id="id_marque" name="id_marque" required>
-            <!-- Options de marques à remplir dynamiquement -->
-        </select>
         <button type="submit">Ajouter</button>
     </form>
 </body>

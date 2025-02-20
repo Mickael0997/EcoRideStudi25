@@ -21,13 +21,29 @@ body {
     color: #333;
 }
 
-.profile-container img {
+.profile-pic-container {
+    position: relative;
+    text-align: center;
+}
+
+.profile-pic-container img {
     display: block;
     margin: 0 auto 20px;
     border-radius: 50%;
     width: 150px;
     height: 150px;
     object-fit: cover;
+}
+
+.credits {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #1b5e20;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 0 10px 0 10px;
+    font-weight: bold;
 }
 
 .profile-container form {
@@ -52,7 +68,7 @@ body {
 
 .profile-container form button {
     padding: 10px;
-    background-color: #38ddcc;
+    background-color: #1b5e20;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -67,14 +83,20 @@ body {
 .profile-container h3 {
     margin-top: 30px;
     color: #333;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .profile-container a {
     display: inline-block;
     margin-bottom: 10px;
-    color: #38ddcc;
+    color: #1b5e20;
     text-decoration: none;
     font-weight: bold;
+    position: relative;
+    top: 5rem;
 }
 
 .profile-container a:hover {
@@ -96,5 +118,162 @@ body {
 }
 
 .home-icon:hover {
-    color: #32c7b8;
+    color: #1b5e20;
+}
+
+.voiture {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.voiture button {
+    margin-right: 10px;
+    padding: 5px 10px;
+    background-color: #38ddcc;
+    color: #1b5e20;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.voiture button:hover {
+    background-color: #32c7b8;
+}
+
+/* Styles pour les fenêtres modales */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 10px;
+    position: relative;
+}
+
+.modal-content h2 {
+    margin-top: 0;
+}
+
+.modal-content .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.modal-content .close:hover,
+.modal-content .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-content button {
+    padding: 10px;
+    background-color: #1b5e20;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.modal-content button:hover {
+    background-color: #32c7b8;
+}
+
+/* Styles spécifiques pour la fenêtre modale de visualisation du covoiturage */
+#viewCovoiturageModal .modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#viewCovoiturageModal .modal-content p {
+    width: 100%;
+    text-align: left;
+    margin: 10px 0;
+}
+
+#viewCovoiturageModal .modal-content .button-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 20px;
+}
+
+#viewCovoiturageModal .modal-content .button-container button {
+    flex: 1;
+    margin: 0 5px;
+    text-decoration: underline;
+    background-color: transparent;
+    color: #1b5e20;
+    border: 1px solid #1b5e20;
+}
+
+#viewCovoiturageModal .modal-content .button-container button:hover {
+    background-color: #1b5e20;
+    color: #fff;
+}
+
+/* Styles pour les sections de menu déroulant */
+.collapsible {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.collapsible i {
+    transition: transform 0.3s;
+}
+
+.collapsible.active i {
+    transform: rotate(180deg);
+}
+
+.content {
+    display: none;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+.content.show {
+    display: block;
+}
+
+.note-globale {
+    font-size: 16px;
+    color: #ff9800;
+    margin-left: 10px;
+}
+
+.avis-container h4 {
+    margin-top: 20px;
+    color: #333;
+}
+
+.avis-container p {
+    margin: 5px 0;
+    color: #555;
 }

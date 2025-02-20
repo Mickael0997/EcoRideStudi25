@@ -84,7 +84,7 @@ unset($_SESSION['error']);
                 <a href="../php/profile.php?id=<?= $id_utilisateur ?>">Mon profil</a>
                 <a href="../php/logout.php">Se déconnecter</a>
             <?php else: ?>
-                <a href="inscription.php">Inscription</a>
+                <a href="../php/inscription.php">Inscription</a>
                 <a href="#" onclick="openLoginModal()">Se connecter</a>
             <?php endif; ?>
         </div>

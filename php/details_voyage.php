@@ -27,15 +27,18 @@ if (!$trajet) {
     die("Détails du trajet non disponibles.");
 }
 
+$id_conducteur = $trajet['id_utilisateur']; // Récupération de l'ID du conducteur
+
 // Requête pour récupérer les avis du conducteur
-$queryAvis = "SELECT a.commentaire, a.note, u.pseudo 
-              FROM Avis a
-              JOIN Utilisateur u ON a.id_utilisateur = u.id_utilisateur
-              WHERE a.id_covoiturage = ?";
+$queryAvis = "SELECT a.commentaire, a.note, u.pseudo AS auteur 
+            FROM Avis a
+            JOIN Utilisateur u ON a.id_auteur = u.id_utilisateur
+            WHERE a.id_utilisateur = ?";
 $stmtAvis = $pdo->prepare($queryAvis);
-$stmtAvis->execute([$trajet['id_covoiturage']]);
+$stmtAvis->execute([$id_conducteur]);
 $avis = $stmtAvis->fetchAll(PDO::FETCH_ASSOC);
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -50,7 +53,7 @@ $avis = $stmtAvis->fetchAll(PDO::FETCH_ASSOC);
             align-items: center;
             margin-bottom: 20px;
             text-decoration: none;
-            color: #38ddcc;
+            color: #1b5e20;
         }
         .back-link svg {
             margin-right: 8px;
@@ -64,6 +67,46 @@ $avis = $stmtAvis->fetchAll(PDO::FETCH_ASSOC);
         }
         .avis-item:last-child {
             border-bottom: none;
+        }
+        .modal {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .btn-oui, .btn-non {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn-oui {
+            background-color: #38ddcc;
+            color: #fff;
+        }
+        .btn-non {
+            background-color: #f44336;
+            color: #fff;
+        }
+        .btn-oui:hover {
+            background-color: #32c7b5;
+        }
+        .btn-non:hover {
+            background-color: #d32f2f;
         }
     </style>
 </head>
@@ -90,9 +133,12 @@ $avis = $stmtAvis->fetchAll(PDO::FETCH_ASSOC);
         <div class="covoiturage-result-price">
             <span><?= htmlspecialchars($trajet['prix_par_personne']) ?>€</span>
             <p>Places disponibles : <?= htmlspecialchars($trajet['nb_place']) ?></p>
+            <?php if ($trajet['nb_place'] > 0): ?>
+                <button onclick="openModal()">Participer</button>
+            <?php endif; ?>
         </div>
     </div>
-    
+
     <h2>Préférences du Conducteur</h2>
     <div class="preferences">
         <p><strong>Fumeur :</strong> <?= htmlspecialchars($trajet['fumeur']) ?></p>
@@ -110,14 +156,14 @@ $avis = $stmtAvis->fetchAll(PDO::FETCH_ASSOC);
         <p><strong>Date de première immatriculation :</strong> <?= htmlspecialchars($trajet['date_premiere_immatriculation']) ?></p>
     </div>
     
-    <h2>Avis du Conducteur</h2>
+    <h2>Avis sur le conducteur</h2>
     <div class="avis">
         <?php if (empty($avis)): ?>
             <p>Aucun avis disponible.</p>
         <?php else: ?>
             <?php foreach ($avis as $a): ?>
                 <div class="avis-item">
-                    <p><strong><?= htmlspecialchars($a['pseudo']) ?></strong> - <?= htmlspecialchars($a['note']) ?> ★</p>
+                    <p><strong><?= htmlspecialchars($a['auteur']) ?></strong> - <?= htmlspecialchars($a['note']) ?> ★</p>
                     <p><?= htmlspecialchars($a['commentaire']) ?></p>
                 </div>
             <?php endforeach; ?>
@@ -126,6 +172,29 @@ $avis = $stmtAvis->fetchAll(PDO::FETCH_ASSOC);
 
     <a href="mailto:<?= htmlspecialchars($trajet['email']) ?>" class="contact-button">Contacter par Email</a>
 </div>
+
+<!-- Fenêtre modale pour la confirmation -->
+<div id="confirmation-modal" class="modal">
+    <div class="modal-content">
+        <p>Êtes-vous sûr de vouloir utiliser 1 crédit pour participer à ce covoiturage ?</p>
+        <form method="post" action="participer.php">
+            <input type="hidden" name="id_covoiturage" value="<?= htmlspecialchars($id_covoiturage) ?>">
+            <input type="hidden" name="confirm" value="1">
+            <button type="submit" class="btn-oui">Oui</button>
+            <button type="button" class="btn-non" onclick="closeModal()">Non</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function openModal() {
+        document.getElementById('confirmation-modal').style.display = 'flex';
+    }
+
+    function closeModal() {
+        document.getElementById('confirmation-modal').style.display = 'none';
+    }
+</script>
 </body>
 </html>
 
