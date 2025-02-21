@@ -4,15 +4,15 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Connexion à la base de données
-$host = "127.0.0.1";
-$port = "3306";
-$dbname = "ecoride";
-$username = "root";
-$password = "";
+// Obtenir les informations de connexion à partir des variables d'environnement
+$cleardb_url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+$host = $cleardb_url["host"];
+$username = $cleardb_url["user"];
+$password = $cleardb_url["pass"];
+$dbname = substr($cleardb_url["path"], 1);
 
 try {
-    $pdo = new PDO("mysql:host=$host;port=$port;dbname=$dbname;charset=utf8", $username, $password);
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     die("Erreur de connexion : " . $e->getMessage());
