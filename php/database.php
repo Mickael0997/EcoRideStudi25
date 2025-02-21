@@ -5,11 +5,10 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 // Obtenir les informations de connexion à partir des variables d'environnement
-$cleardb_url = parse_url(getenv("CLEARDB_DATABASE_URL"));
-$host = $cleardb_url["host"];
-$username = $cleardb_url["user"];
-$password = $cleardb_url["pass"];
-$dbname = substr($cleardb_url["path"], 1);
+$host = getenv("DB_HOST");
+$username = getenv("DB_USER");
+$password = getenv("DB_PASSWORD");
+$dbname = getenv("DB_NAME");
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
