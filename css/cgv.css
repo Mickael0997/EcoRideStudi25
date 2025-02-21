@@ -1,0 +1,39 @@
+/* Styles spécifiques pour la page des mentions légales */
+.legal-container {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    max-width: 800px;
+}
+
+.legal-container h1 {
+    color: #38ddcc;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.legal-container p {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.legal-container p strong {
+    color: #333;
+}
+
+.home-button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: #38ddcc;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.home-button svg {
+    width: 24px;
+    height: 24px;
+}

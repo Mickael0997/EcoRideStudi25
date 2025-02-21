@@ -6,138 +6,6 @@ body {
     color: #333;
 }
 
-/*---------- HEADER ----------*/
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #ffffff00;
-}
-
-.header-left {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.header-left h1 {
-    font-weight: 700;
-    color: black;
-    margin: 0;
-    font-size: 3rem;
-}
-
-.header-left p {
-    font-weight: 400;
-    color: grey;
-    margin: 0;
-    font-size: 0.9em;
-    margin-left: 6rem;
-}
-
-.navbar {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    position: relative;
-}
-
-.menu-icon {
-    display: none;
-    flex-direction: column;
-    cursor: pointer;
-}
-
-.menu-icon-bar {
-    width: 25px;
-    height: 3px;
-    background-color: black;
-    margin: 4px 0;
-}
-
-.nav-list-one {
-    display: flex;
-    gap: 10rem;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    margin-right: 16rem;
-    font-size: 20px;
-}
-
-.nav-list-two {
-    display: flex;
-    gap: 20px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    font-size: 20px;
-}
-
-.nav-list-one li, .nav-list-two li {
-    display: flex;
-    align-items: center;
-}
-
-.nav-list-one li a, .nav-list-two li a {
-    text-decoration: none;
-    color: black;
-    font-weight: 400;
-}
-
-.add-icon {
-    background-color: #000;
-    color: #fff;
-    border-radius: 50%;
-    padding: 2px 6px;
-    margin-left: 5px;
-}
-
-.profile-icon {
-    width: 100px;
-    height: 100px;
-    background-color: rgba(3, 3, 3, 0);
-    border-radius: 50%;
-    display: inline-block;
-    margin-right: 5rem;
-    cursor: pointer;
-    border: 1px solid;
-}
-
-.profile-menu {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    width: 10rem;
-    top: 100px;
-    right: 40px;
-    background-color: #b7eae6;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-    border-radius: 5px;
-}
-
-.dropdown-content a {
-    color: rgb(255, 255, 255);
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-.dropdown-content a:hover {
-    background-color: #1C7A72;
-}
-
-.profile-menu:hover .dropdown-content {
-    display: block;
-}
-
 /*---------- MAIN ----------*/
 
 .banner {
@@ -203,21 +71,26 @@ header {
 
 .search-bar {
     display: flex;
-    align-items: center;
-    padding: 10px;
+    justify-content: center;
+    padding: 20px;
     background-color: #fff;
     border-radius: 10px;
-    gap: 10px;
-    margin: 4rem;
-    margin-right: 31rem;
-    margin-left: 34rem;
+    margin: 20px 0;
     border: solid 0.5px rgba(55, 55, 55, 0.2);
+    width: 50%;
+    margin-left: 29rem;
+}
+
+.search-bar form {
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
 
 .search-item {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 10px;
 }
 
 .icon-circle {
@@ -264,9 +137,9 @@ header {
 .search-bar input[type="text"],
 .search-bar input[type="date"],
 .search-bar input[type="number"] {
-    padding: 5px;
+    padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 3px;
+    border-radius: 5px;
 }
 
 .search-button {
@@ -285,192 +158,34 @@ header {
 /*---------- BLOC TEXT ----------*/
 .text-section {
     display: flex;
-    justify-content: space-between;
-    margin: 20px 0;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
 }
 
 .text-block {
-    flex: 1;
-    margin: 0 10px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-}
-
-.text-block h3 {
-    margin-top: 0;
-}
-
-.text-block p {
-    margin-bottom: 0;
-}
-
-/*---------- BLOC BON PLAN ----------*/
-.deals {
-    text-align: center;
-    margin: 20px auto;
-    margin-top: 6rem;
-    position: relative;
-    border: 1px solid #ccc;
-    padding: 20px;
-    border-radius: 10px;
-    max-width: 90%;
-    width: 56.5rem;
-}
-
-.deals h2 {
-    margin: 0;
-    position: absolute;
-    top: -20px; /* Ajustez cette valeur selon vos besoins */
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #fff; /* Assurez-vous que la couleur de fond correspond à celle de .deals */
-    padding: 0 10px; /* Ajoutez du padding pour que le texte ne touche pas les bords */
-    z-index: 1; /* Assurez-vous que le titre est au-dessus des autres éléments */
-}
-
-.deal-container {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 5px; /* Ajustez la marge supérieure pour compenser le positionnement absolu de h2 */
-    flex-wrap: wrap;
-}
-
-.deal-column {
-    flex: 1;
-    margin: 0 10px;
-    min-width: 250px; /* Assurez-vous que les colonnes ne deviennent pas trop petites */
-}
-
-.deal-item {
-    background-color: #e8f5e9;
+    width: 45%;
     padding: 15px;
     margin: 10px 0;
-    border-radius: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    border: 1px solid #ccc; /* Ajoutez une bordure visible */
 }
 
-.deal-item span {
-    font-weight: bold;
-    margin-bottom: 5px;
+.text-block.left {
+    align-self: flex-start;
 }
 
-.see-more-button {
-    padding: 10px 20px;
-    background-color: #1C7A72;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 20px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+.text-block.right {
+    align-self: flex-end;
 }
 
-.see-more-button:hover {
-    background-color: #1b5e20;
+.text-block h3 {
+    margin: 0 0 10px 0;
 }
 
-/*---------- MEDIA QUERIES ----------*/
-@media (max-width: 480px) {
-    header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .header-left h1 {
-        font-size: 1.5rem;
-    }
-
-    .header-left p {
-        margin-left: 0;
-        font-size: 0.8em;
-    }
-
-    .navbar {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-    }
-
-    .nav-list-one {
-        display: none;
-    }
-
-    .menu-icon {
-        display: flex;
-    }
-
-    .menu-icon.active + .nav-list-one {
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        top: 50px;
-        right: 20px;
-        background-color: white;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-        border-radius: 5px;
-        padding: 10px;
-    }
-
-    .nav-list-one li {
-        margin: 10px 0;
-    }
-
-    .profile-menu {
-        align-self: flex-end;
-    }
-
-    .dropdown-content {
-        right: 10px;
-    }
-
-    .banner {
-        flex-direction: column;
-        height: auto;
-        gap: 20px;
-    }
-
-    .image1, .image2, .image3 {
-        max-width: 100%;
-        height: auto;
-    }
-
-    .search-bar {
-        flex-direction: column;
-        margin: 20px;
-        margin-right: auto;
-        margin-left: auto;
-    }
-
-    .text-section {
-        flex-direction: column;
-        margin: 10px 0;
-    }
-
-    .text-block {
-        margin: 10px 0;
-    }
-
-    .deals {
-        width: 90%;
-        padding: 10px;
-    }
-
-    .deal-container {
-        flex-direction: column;
-    }
-
-    .deal-column {
-        margin: 0;
-        min-width: 100%;
-    }
-
-    .deal-item {
-        width: 100%;
-    }
+.text-block p {
+    margin: 0;
 }

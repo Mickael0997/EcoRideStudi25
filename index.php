@@ -25,21 +25,14 @@
 </div>
 
 <!--NAV RECHERCHE-->
-<section class="search-bar">
+<form action="php/covoiturage.php" method="GET" class="search-bar">
     <div class="search-item">
         <span class="icon-circle turquoise"></span>
-        <input type="text" placeholder="Départ" list="villes">
-        <datalist id="villes">
-            <option value="Paris">
-            <option value="Marseille">
-            <option value="Lyon">
-            <option value="Toulouse">
-            <option value="Nice">
-        </datalist>
+        <input type="text" name="depart" placeholder="Départ">
     </div>
     <div class="search-item">
         <span class="icon-circle green"></span>
-        <input type="text" placeholder="Destination" list="villes">
+        <input type="text" name="destination" placeholder="Destination">
     </div>
     <div class="search-item">
         <span class="icon-calendar">
@@ -52,7 +45,7 @@
                 </g>
             </svg>
         </span>
-        <input type="date">
+        <input type="date" name="date">
     </div>
     <div class="search-item">
         <span class="icon-passenger">
@@ -64,68 +57,26 @@
                 </g>
             </svg>
         </span>
-        <input type="number" min="1" max="8" value="1">
+        <input type="number" name="passagers" min="1" max="8" value="1" required>
         <label for="passenger">passager</label>
     </div>
-    <button class="search-button">Rechercher</button>
-</section>
+    <button class="search-button" type="submit">Rechercher</button>
+</form>
 
 <!--NOUVELLE SECTION TEXTE-->
 <section class="text-section">
-    <div class="text-block">
+    <div class="text-block left">
         <h3>Vos trajets préférés à petits prix</h3>
         <p>Où que vous alliez, en covoiturage, trouvez le trajet idéal parmi notre large choix de destinations à petits prix.</p>
     </div>
-    <div class="text-block">
+    <div class="text-block right">
         <h3>Voyagez en toute confiance</h3>
         <p>Nous prenons le temps qu’il faut pour connaître nos membres. Nous vérifions les avis, les profils et les pièces d’identité. Vous savez donc avec qui vous allez voyager pour réserver en toute confiance sur notre plateforme sécurisée.</p>
     </div>
-    <div class="text-block">
+    <div class="text-block left">
         <h3>Recherchez, cliquez et réservez !</h3>
         <p>Réserver un trajet devient encore plus simple ! Facile d'utilisation et dotée de technologies avancées, notre appli vous permet de réserver un trajet à proximité en un rien de temps.</p>
     </div>
-</section>
-
-<!--LES BON PLANS-->
-<section class="deals">
-    <h2>Les bons plans</h2>
-    <div class="deal-container">
-        <div class="deal-column">
-            <div class="deal-item">
-                <span>Pseudo1</span>
-                <span>Paris -> Marseille</span>
-                <span>Aujourd'hui - 10:00 - 1 place disponible</span>
-            </div>
-            <div class="deal-item">
-                <span>Pseudo2</span>
-                <span>Lyon -> Toulouse</span>
-                <span>Demain - 14:00 - 2 places disponibles</span>
-            </div>
-            <div class="deal-item">
-                <span>Pseudo3</span>
-                <span>Nice -> Bordeaux</span>
-                <span>Samedi - 09:00 - 3 places disponibles</span>
-            </div>
-        </div>
-        <div class="deal-column">
-            <div class="deal-item">
-                <span>Pseudo4</span>
-                <span>Marseille -> Paris</span>
-                <span>Aujourd'hui - 16:00 - 1 place disponible</span>
-            </div>
-            <div class="deal-item">
-                <span>Pseudo5</span>
-                <span>Toulouse -> Lyon</span>
-                <span>Demain - 18:00 - 2 places disponibles</span>
-            </div>
-            <div class="deal-item">
-                <span>Pseudo6</span>
-                <span>Bordeaux -> Nice</span>
-                <span>Dimanche - 11:00 - 3 places disponibles</span>
-            </div>
-        </div>
-    </div>
-    <button class="see-more-button">Voir plus</button>
 </section>
 </main>
 <?php include './php/footer.php'; ?>

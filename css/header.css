@@ -1,0 +1,247 @@
+/* Styles généraux pour le header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #ffffff00;
+    position: relative; /* Ajouté pour positionner l'overlay correctement */
+    z-index: 10; /* Assurez-vous que le header est au-dessus de l'overlay */
+}
+
+.header_title h1 a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.header_title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.header_title h1 {
+    font-weight: 700;
+    color: black;
+    margin: 0;
+    font-size: 2rem; /* Ajusté pour les petites résolutions */
+    text-align: left;
+}
+
+.header_title p {
+    font-weight: 400;
+    color: grey;
+    margin: 0;
+    font-size: 0.8em; /* Ajusté pour les petites résolutions */
+    margin-left: 0; /* Ajusté pour les petites résolutions */
+}
+
+.header-title a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.header_navbar {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Ajusté pour les petites résolutions */
+    position: relative;
+}
+
+.header_navbar_list {
+    display: flex;
+    gap: 10rem;
+    list-style: none;
+    font-size: 16px;
+    width: auto;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    left: 9rem;
+}
+.header_navbar_list:last-of-type {
+    margin-right: initial;
+}
+
+.header_navbar_list li {
+    display: flex;
+    align-items: center;
+}
+
+.header_navbar_list li a {
+    position: relative;
+    text-decoration: none;
+    color: black;
+    font-weight: 400;
+    font-size: 20px;
+}
+
+.header_navbar_list li a::after {
+    content: '';
+    height: 2px;
+    background-color: #1c7a72;
+    width: 0;
+    position: absolute;
+    bottom: -5px;
+    right: 0;
+    transition: 0.2s all ease-in-out;
+}
+
+.header_navbar_list li a:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+.header_profile_menu {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-left: auto; /* Aligner à droite */
+}
+
+.header_profile_pseudo {
+    margin-right: 10px;
+    font-weight: bold;
+    font-size: 14px; /* Ajusté pour les petites résolutions */
+}
+
+.header_profile_icon img {
+    width: 40px; /* Ajusté pour les petites résolutions */
+    height: 40px; /* Ajusté pour les petites résolutions */
+    border-radius: 50%;
+}
+
+.header_profile_menu:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    right: 40px;
+    top: 5px;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+/* Styles pour le burger */
+.header_burger {
+    display: none;
+    cursor: pointer;
+    width: 2rem;
+    position: fixed;
+    right: 24px; /* Utilisez right au lieu de left pour un positionnement flexible */
+    top: 60px; /* Ajustez la position verticale selon vos besoins */
+    transform: translateX(0); /* Centrez le bouton horizontalement */
+    z-index: 20; /* Assurez-vous que le bouton est au-dessus de l'overlay */
+}
+
+.header_burger svg {
+    stroke: #000;
+    width: 30px; /* Ajusté pour les petites résolutions */
+    height: 30px; /* Ajusté pour les petites résolutions */
+    cursor: pointer;
+}
+
+.header_close_burger {
+    display: none;
+}
+
+@media (min-width: 750px) {
+    .header_container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .header_navbar_list {
+        flex-grow: 1;
+        justify-content: center;
+    }
+
+    .header_navbar_list li {
+        margin: 0 1rem;
+    }
+}
+
+/* Media queries */
+@media screen and (max-width: 750px) {
+    .header_burger {
+        display: block;
+        cursor: pointer;
+    }
+
+    .header_navbar {
+        display: none;
+        position: absolute;
+        top: 80%;
+        left: 62%;
+        width: 25%;
+        background-color: #b7eae6;
+        transition: 0.3s transform ease-in-out;
+        z-index: 20;
+        border-radius: 10px;
+        height: 7rem;
+    }
+
+    .header_navbar.open {
+        display: flex;
+    }
+
+    .header_navbar_list {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .header_navbar_list li {
+        margin-right: 0;
+    }
+
+    .header_navbar_list li a {
+        font-size: 15px;
+        bottom: 5px;
+    }
+
+    .header_close_burger {
+        display: block;
+        cursor: pointer;
+    }
+
+    .header_close_burger svg {
+        stroke: #000;
+        width: 22px;
+        height: 15px;
+        position: absolute;
+        right: 5px;
+        top: 5px;
+    }
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0,0,0,0.6);
+        display: none;
+        z-index: 9; /* pour que l'overlay sois en dessous du menu */
+    }
+
+    .overlay.open {
+        display: block;
+    }
+}

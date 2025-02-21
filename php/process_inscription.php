@@ -1,38 +1,51 @@
 <?php
-// Connexion à la base de données
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "ecoride";
+session_start();
+include __DIR__ . '/database.php';
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $confirm_password = $_POST['confirm_password'];
 
-if ($conn->connect_error) {
-    die("Connexion échouée: " . $conn->connect_error);
+    // Vérifier si les mots de passe correspondent
+    if ($password !== $confirm_password) {
+        die("Erreur : Les mots de passe ne correspondent pas.");
+    }
+
+    // Vérifier si l'email est déjà utilisé
+    $stmt = $pdo->prepare("SELECT COUNT(*) FROM Utilisateur WHERE email = ?");
+    $stmt->execute([$email]);
+    if ($stmt->fetchColumn() > 0) {
+        die("Erreur : Cet email est déjà utilisé.");
+    }
+
+    // Hacher le mot de passe
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+    // Insérer l'utilisateur dans la base de données
+    $stmt = $pdo->prepare("
+        INSERT INTO Utilisateur (pseudo, email, mot_de_passe, id_role)
+        VALUES (:username, :email, :password, 2) -- Assurez-vous que 2 est l'ID du rôle utilisateur
+    ");
+    $stmt->execute([
+        'username' => $username,
+        'email' => $email,
+        'password' => $hashed_password
+    ]);
+
+    // Récupérer l'ID de l'utilisateur nouvellement créé
+    $user_id = $pdo->lastInsertId();
+
+    // Ajouter 20 crédits à l'utilisateur
+    $stmt = $pdo->prepare("INSERT INTO Credit (id_utilisateur, solde) VALUES (?, 20)");
+    $stmt->execute([$user_id]);
+
+    // Connecter l'utilisateur
+    $_SESSION['id_utilisateur'] = $user_id;
+
+    // Rediriger vers le profil
+    header('Location: profile.php');
+    exit;
 }
-
-// Récupération des données du formulaire
-$username = $_POST['username'];
-$email = $_POST['email'];
-$password = $_POST['password'];
-$confirm_password = $_POST['confirm_password'];
-
-// Vérification des mots de passe
-if ($password !== $confirm_password) {
-    die("Les mots de passe ne correspondent pas.");
-}
-
-// Hachage du mot de passe
-$hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
-// Insertion des données dans la base de données
-$sql = "INSERT INTO users (username, email, password) VALUES ('$username', '$email', '$hashed_password')";
-
-if ($conn->query($sql) === TRUE) {
-    echo "Inscription réussie. <a href='login.php'>Se connecter</a>";
-} else {
-    echo "Erreur: " . $sql . "<br>" . $conn->error;
-}
-
-$conn->close();
 ?>
