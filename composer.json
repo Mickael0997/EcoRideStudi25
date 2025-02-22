@@ -2,6 +2,6 @@
     "name": "mickael/ecoride",
     "description": "EcoRide - Application de covoiturage",
     "require": {
-    "php": "^7.4 || ^8.0"
+        "php": "^7.4 || ^8.0"
     }
 }

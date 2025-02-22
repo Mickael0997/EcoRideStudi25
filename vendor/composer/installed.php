@@ -3,7 +3,7 @@
         'name' => 'mickael/ecoride',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'f25bd9b236528af46bee506078ad7ea0a89cd775',
+        'reference' => 'dde628aa3fde8fcaf0c699afbb937ce354cba935',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'mickael/ecoride' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'f25bd9b236528af46bee506078ad7ea0a89cd775',
+            'reference' => 'dde628aa3fde8fcaf0c699afbb937ce354cba935',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
